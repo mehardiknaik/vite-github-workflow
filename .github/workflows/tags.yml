@@ -38,13 +38,3 @@ jobs:
         run: |
           git tag ${{env.next_version}}
           git push origin ${{env.next_version}}
-
-      # Create a version.env file with the next version
-      - name: Create version.env for tag
-        run: |
-          echo "VITE_APP_VERSION=${{env.next_version}}" > version.env
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add version.env
-          git commit -m "chore: update version.env for version ${{env.next_version}}"
-          git push origin ${{env.next_version}}
