@@ -41,7 +41,7 @@ jobs:
 
       - name: Save the version number
         run: |
-          echo "VITE_APP_VERSION=${{env.next_version}}" >> version.env
+          echo "VITE_APP_VERSION=${{env.next_version}}" > version.env
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add version.env
