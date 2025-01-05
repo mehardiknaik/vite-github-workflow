@@ -39,7 +39,7 @@ jobs:
           zip -r build_output.zip build_output/
         
       - name: Upload the ZIP file as an artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build-output-${{ github.ref }}
           path: build_output.zip
