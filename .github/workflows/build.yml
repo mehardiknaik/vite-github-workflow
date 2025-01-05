@@ -32,14 +32,17 @@ jobs:
           echo "App Version: ${{env.VITE_APP_VERSION}}"
           npm run build
 
-      - name: Create ZIP file of the build
-        run: |
-          mkdir build
-          cp -r dist/* build/  # Adjust the path to your build output
-          zip -r build.zip build/
+      - name: Create a directory for build output
+        run: mkdir -p build
+
+      - name: Copy build files to the output directory
+        run: cp -r dist/* build/  # Adjust the path to your build output
+
+      - name: Create a ZIP file of the build output
+        run: zip -r build.zip build/
 
       - name: Upload the ZIP file as an artifact
         uses: actions/upload-artifact@v4
         with:
-          name: build-${{github.ref_name}}
+          name: build-${{ github.ref_name }}
           path: build.zip
