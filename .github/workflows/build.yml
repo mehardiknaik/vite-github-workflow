@@ -31,9 +31,15 @@ jobs:
         run: |
           echo "App Version: ${{github.ref_name}}"
           npm run build
+
+      - name: Create ZIP file of the build
+        run: |
+          mkdir build_output
+          cp -r dist/* build_output/  # Adjust the path to your build output
+          zip -r build_output.zip build_output/
         
       - name: Upload the ZIP file as an artifact
         uses: actions/upload-artifact@v4
         with:
-          name: build-output-${{ github.ref }}
-          path: dist/
+          name: build-output-abc
+          path: build_output.zip
