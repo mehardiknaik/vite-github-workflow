@@ -5,6 +5,8 @@ on:
 
 jobs:
   deploy:
+    only:
+      - tags
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
     environment:
