@@ -36,4 +36,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: build-output-${{ github.ref }}
-          path: deist/
+          path: dist/
