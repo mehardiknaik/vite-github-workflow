@@ -25,7 +25,12 @@ jobs:
         run: npm install  # Adjust this if you're using another build system
 
       - name: Build the project
-        run: npm run build  # Adjust to your build command
+        env:
+          VITE_APP_VERSION: ${{github.ref_name}}
+          VITE_BASE_URL: ${{steps.deployment.outputs.page_url}}
+        run: |
+          echo "App Version: ${{github.ref_name}}"
+          npm run build
 
       - name: Create ZIP file of the build
         run: |
