@@ -44,7 +44,7 @@ jobs:
           echo "VITE_APP_VERSION=${{env.next_version}}" > version.env
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add version.env
+          git add .
           git commit -m chore: update version.env for version ${{env.next_version}}"
           git push
 
