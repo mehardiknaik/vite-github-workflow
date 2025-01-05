@@ -34,9 +34,9 @@ jobs:
       - name: Build the Application
         env:
           VITE_APP_VERSION: ${{env.next_version}}
-          VITE_BASE_URL: ${{ steps.deployment.outputs.page_url }}
+          VITE_BASE_URL: ${{steps.deployment.outputs.page_url}}
         run: |
-          echo "VITE_APP_VERSION=$VITE_APP_VERSION" > .env
+          echo "VITE_APP_VERSION=${{env.next_version}}" > .env
           npm run build
 
       - name: Setup Pages
