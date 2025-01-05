@@ -41,8 +41,8 @@ jobs:
       - name: Create a ZIP file of the build output
         run: zip -r build.zip build/
 
-      - name: Upload the ZIP file as an artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-${{ github.ref_name }}
-          path: build.zip
+      # - name: Upload the ZIP file as an artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: build-${{ github.ref_name }}
+      #     path: build.zip
