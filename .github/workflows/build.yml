@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     tags:
-      - '*'  # This triggers the workflow when any tag is created
+      - "*" # This triggers the workflow when any tag is created
 
 jobs:
   build:
@@ -18,28 +18,28 @@ jobs:
       - name: Set up Node.js (if your project is Node.js based, adjust accordingly)
         uses: actions/setup-node@v3
         with:
-          node-version: 18  # Adjust based on your project's requirements
+          node-version: 18 # Adjust based on your project's requirements
 
       # Example build step (adjust for your project type)
       - name: Install dependencies
-        run: npm install  # Adjust this if you're using another build system
+        run: npm install # Adjust this if you're using another build system
 
       - name: Build the project
         env:
           VITE_APP_VERSION: ${{github.ref_name}}
           VITE_BASE_URL: ${{steps.deployment.outputs.page_url}}
         run: |
-          echo "App Version: ${{github.ref_name}}"
+          echo "App Version: ${{env.VITE_APP_VERSION}}"
           npm run build
 
       - name: Create ZIP file of the build
         run: |
-          mkdir build_output
-          cp -r dist/* build_output/  # Adjust the path to your build output
-          zip -r build_output.zip build_output/
-        
+          mkdir build
+          cp -r dist/* build/  # Adjust the path to your build output
+          zip -r build.zip build/
+
       - name: Upload the ZIP file as an artifact
         uses: actions/upload-artifact@v4
         with:
-          name: build-output-${{ github.ref_name }}
-          path: build_output.zip
+          name: build-output-${{env.VITE_APP_VERSION}}
+          path: build.zip
