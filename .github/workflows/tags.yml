@@ -48,4 +48,5 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add version.env
+          git commit -m "chore: update version.env for version ${{env.next_version}}"
           git push origin ${{env.next_version}}
