@@ -50,9 +50,4 @@ jobs:
         run: |
           git tag ${{env.next_version}}
           git push origin ${{env.next_version}}
-      # Show the created tag in job summary
-       - name: Show Created Tag in Job Summary
-        run: |
-          echo "The created tag is: ${{env.next_version}}" >> $GITHUB_STEP_SUMMARY
-
       
