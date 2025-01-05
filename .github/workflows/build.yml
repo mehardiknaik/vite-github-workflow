@@ -1,0 +1,39 @@
+name: Build and Attach ZIP to Tag
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    name: Build and Create ZIP for Tag
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js (if your project is Node.js based, adjust accordingly)
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # Use your required Node.js version
+
+      # Example build step (adjust for your project type)
+      - name: Install dependencies
+        run: npm install  # Adjust this if you're using another build system
+
+      - name: Build the project
+        run: npm run build  # Adjust to your build command
+
+      - name: Create ZIP file of the build
+        run: |
+          mkdir build_output
+          cp -r dist/* build_output/  # Adjust the path to your build output
+          zip -r build_output.zip build_output/
+        
+      - name: Upload the ZIP file as an artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-output-${{ github.ref }}
+          path: build_output.zip
