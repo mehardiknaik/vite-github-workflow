@@ -24,11 +24,7 @@ jobs:
           echo "Latest Tag: $latest_tag"
 
           # Increment the last number
-          IFS='.' read -r -a version_parts <<< "$latest_tag"
-          major="${version_parts[0]}"
-          minor="${version_parts[1]}"
-          patch="${version_parts[2]}"
-          next_version="$major.$minor.$((patch + 1))"
+          next_version=$(echo $latest_tag | awk -F. '{$NF+=1} 1' OFS=.)
           echo "Next Version: $next_version"
           echo "next_version=$next_version" >> $GITHUB_ENV
 
