@@ -18,7 +18,7 @@ jobs:
       - name: Set up Node.js (if your project is Node.js based, adjust accordingly)
         uses: actions/setup-node@v3
         with:
-          node-version: '16'  # Adjust based on your project's requirements
+          node-version: 18  # Adjust based on your project's requirements
 
       # Example build step (adjust for your project type)
       - name: Install dependencies
