@@ -1,4 +1,4 @@
-name: Build and Attach ZIP to Tag
+name: Create Build
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build and Create ZIP for Tag
+    name: Build and Create ZIP
     runs-on: ubuntu-latest
 
     steps:
@@ -41,5 +41,5 @@ jobs:
       - name: Upload the ZIP file as an artifact
         uses: actions/upload-artifact@v4
         with:
-          name: build-output-${{env.VITE_APP_VERSION}}
+          name: build-${{github.ref_name}}
           path: build.zip
