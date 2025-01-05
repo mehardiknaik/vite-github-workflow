@@ -1,6 +1,7 @@
 name: Build and Attach ZIP to Tag
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - '*'  # This triggers the workflow when any tag is created
