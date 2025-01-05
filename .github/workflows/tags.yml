@@ -2,6 +2,11 @@ name: Create a Tag
 
 on:
   workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Tag name (Leave empty to auto-increment from the latest tag)'
+        required: false
+        default: ''
   push:
     branches:
       - main
@@ -22,14 +27,21 @@ jobs:
       - name: Get the Next Version
         id: version
         run: |
-          # Get the latest tag
-          latest_tag=$(git describe --tags $(git rev-list --tags --max-count=1) 2>/dev/null || echo "0.0.0")
-          echo "Latest Tag: $latest_tag"
+          # Check if tag_name is provided from workflow_dispatch input
+          if [[ -z "${{ github.event.inputs.tag_name }}" ]]; then
+            # No tag name provided, get the latest tag and increment
+            latest_tag=$(git describe --tags $(git rev-list --tags --max-count=1) 2>/dev/null || echo "0.0.0")
+            echo "Latest Tag: $latest_tag"
 
-          # Increment the last number
-          next_version=$(echo $latest_tag | awk -F. '{$NF+=1} 1' OFS=.)
-          echo "Next Version: $next_version"
-          echo "next_version=$next_version" >> $GITHUB_ENV
+            # Increment the last number
+            next_version=$(echo $latest_tag | awk -F. '{$NF+=1} 1' OFS=.)
+            echo "Next Version: $next_version"
+            echo "next_version=$next_version" >> $GITHUB_ENV
+          else
+            # Use provided tag_name
+            echo "Using provided tag: ${{ github.event.inputs.tag_name }}"
+            echo "next_version=${{ github.event.inputs.tag_name }}" >> $GITHUB_ENV
+          fi
 
       # Create a tag and push it to the repository
       - name: Create Tag
