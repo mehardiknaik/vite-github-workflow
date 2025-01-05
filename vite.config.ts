@@ -10,8 +10,8 @@ const envWithVitePrefix = Object.keys(process.env)
 
 // https://vite.dev/config/
 export default defineConfig(({}) => {
-  console.log(envWithVitePrefix);
   return {
+    base: process.env.VITE_BASE_URL,
     plugins: [react()],
     define: envWithVitePrefix,
   };
