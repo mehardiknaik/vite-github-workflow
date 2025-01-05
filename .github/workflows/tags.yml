@@ -1,4 +1,4 @@
-name: Tagging the Pipeline
+name: Create a Tag
 
 on:
   workflow_dispatch:
