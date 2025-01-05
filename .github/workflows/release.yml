@@ -2,7 +2,10 @@ name: Create Build And Release
 
 on:
   workflow_dispatch:
-
+  only:
+    - tags
+  except:
+    - branches
 jobs:
   deploy:
     name: Deploy to GitHub Pages
