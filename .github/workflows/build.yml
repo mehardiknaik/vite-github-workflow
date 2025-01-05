@@ -4,11 +4,11 @@ on:
   workflow_dispatch:
   push:
     tags:
-      - "*" # This triggers the workflow when any tag is created
+      - "*"  # This triggers the workflow when any tag is created
 
 jobs:
   build:
-    name: Build and Create ZIP
+    name: Build and Create Artifact
     runs-on: ubuntu-latest
 
     steps:
@@ -26,23 +26,20 @@ jobs:
 
       - name: Build the project
         env:
-          VITE_APP_VERSION: ${{github.ref_name}}
-          VITE_BASE_URL: ${{steps.deployment.outputs.page_url}}
+          VITE_APP_VERSION: ${{ github.ref_name }}
+          VITE_BASE_URL: ${{ steps.deployment.outputs.page_url }}
         run: |
-          echo "App Version: ${{env.VITE_APP_VERSION}}"
+          echo "App Version: ${{ env.VITE_APP_VERSION }}"
           npm run build
 
-      - name: Create a directory for build output
+      - name: Create build output directory
         run: mkdir -p build
 
       - name: Copy build files to the output directory
         run: cp -r dist/* build/  # Adjust the path to your build output
 
-      - name: Create a ZIP file of the build output
-        run: zip -r build.zip build/
-
-      # - name: Upload the ZIP file as an artifact
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: build-${{ github.ref_name }}
-      #     path: build.zip
+      - name: Upload the build folder as an artifact (not a ZIP)
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-${{ github.ref_name }}
+          path: build/
