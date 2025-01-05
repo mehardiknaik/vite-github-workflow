@@ -31,15 +31,6 @@ jobs:
           echo "Next Version: $next_version"
           echo "next_version=$next_version" >> $GITHUB_ENV
 
-      # Create version.env only for tags (before creating the tag)
-      - name: Create version.env for tag
-        run: |
-          echo "VITE_APP_VERSION=${{env.next_version}}" > version.env
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add version.env
-          git push --no-verify
-
       # Create a tag and push it to the repository
       - name: Create Tag
         env:
@@ -47,3 +38,14 @@ jobs:
         run: |
           git tag ${{env.next_version}}
           git push origin ${{env.next_version}}
+
+            # Create version.env only for tags (before creating the tag)
+
+      # Create a version.env file with the next version
+      - name: Create version.env for tag
+        run: |
+          echo "VITE_APP_VERSION=${{env.next_version}}" > version.env
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add version.env
+          git push ${{env.next_version}}
