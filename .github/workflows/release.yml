@@ -36,7 +36,7 @@ jobs:
           VITE_APP_VERSION: ${{github.ref_name}}
           VITE_BASE_URL: ${{steps.deployment.outputs.page_url}}
         run: |
-          echo "VITE_APP_VERSION=${{github.ref_name}}"
+          echo "App Version: ${{github.ref_name}}"
           npm run build
 
       - name: Setup Pages
