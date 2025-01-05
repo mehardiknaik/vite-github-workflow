@@ -28,6 +28,7 @@ jobs:
          if [ -f version.env ]; then
             source version.env
           else 
+            echo "version.env not found!"
             VITE_APP_VERSION=0.0.0
           fi
           echo "VITE_APP_VERSION=$VITE_APP_VERSION"

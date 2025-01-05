@@ -33,7 +33,6 @@ jobs:
 
       # Create version.env only for tags (before creating the tag)
       - name: Create version.env for tag
-        if: startsWith(github.ref, 'refs/tags/')
         run: |
           echo "VITE_APP_VERSION=${{env.next_version}}" > version.env
           git config user.name "GitHub Actions"
