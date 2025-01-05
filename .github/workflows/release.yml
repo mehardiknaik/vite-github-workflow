@@ -2,10 +2,14 @@ name: Create Build And Release
 
 on:
   workflow_dispatch:
-  only:
-    - tags
-  except:
-    - branches
+    inputs:
+      tag:
+        description: 'Tag to release'
+        required: true
+        type: choice
+        options:
+          - ${{ github.ref }}
+
 jobs:
   deploy:
     name: Deploy to GitHub Pages
