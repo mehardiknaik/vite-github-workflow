@@ -25,7 +25,7 @@ jobs:
 
       - name: Load the version number
         run: |
-          if[ -f version.env ]; then
+         if [ -f version.env ]; then
             source version.env
           else 
             VITE_APP_VERSION=0.0.0
